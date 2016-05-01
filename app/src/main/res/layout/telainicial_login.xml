@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/logo" />
+
+    <LinearLayout
+        android:layout_width="339dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <EditText
+                android:id="@+id/telainicial_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_mail_white_24dp"
+                android:hint="Login"
+                android:inputType="text"
+                android:textColorHint="#FFF"
+                android:textColor="#FFF"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+
+
+            <EditText
+                android:id="@+id/telainicial_senha"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_lock_white_24dp"
+                android:hint="Senha"
+                android:inputType="textPassword"
+                android:textColorHint="#FFF"
+                android:textColor="#FFF"
+                />
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Exibir Senha"
+                android:id="@+id/telainicial_exibirsenha"
+                />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/border_button"
+                android:text="Login" />
+
+            <TextView
+                android:id="@+id/telainicial_cadastrar"
+                android:layout_width="match_parent"
+                android:layout_height="28dp"
+                android:layout_marginTop="25dp"
+                android:clickable="true"
+                android:gravity="center_horizontal"
+                android:onClick="cadastro"
+                android:text="Não tem conta? Cadastre-se"
+                />
+
+            <TextView
+                android:id="@+id/telainicial_esqueceusenha"
+                android:layout_width="match_parent"
+                android:layout_height="28dp"
+                android:layout_marginTop="5dp"
+                android:clickable="true"
+                android:gravity="center_horizontal"
+                android:onClick="esqueceusenha"
+                android:text="Esqueceu sua senha?"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
