@@ -19,9 +19,6 @@
             android:layout_height="wrap_content"
             android:hint="Nome"
             android:inputType="text"
-            android:textColorHint="@color/colorLightPimaryColor"
-            android:background="@drawable/border_cadastro"
-            android:padding="2dp"
              />
 
         <EditText
@@ -29,7 +26,7 @@
             android:layout_width="55dp"
             android:layout_height="wrap_content"
             android:hint="Idade"
-            android:inputType="number"
+            android:inputType="date"
 
 
             />
