@@ -3,6 +3,8 @@ package br.com.impacta.breathmobi_app.View;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import br.com.impacta.breathmobi_app.Controller.ClienteHelper;
 import br.com.impacta.breathmobi_app.Model.Cliente;
@@ -15,13 +17,13 @@ import br.com.impacta.breathmobi_app.R;
 public class CadastroCliente extends AppCompatActivity {
 
     private ClienteHelper chelper;
+    private Button btn_cadastrarcliente;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cadastro_cliente);
 
-        chelper = new ClienteHelper(this);
         //recuperar Intent//
         Intent mIntent = getIntent();
         //devolver Serializable de cliente//
@@ -31,10 +33,12 @@ public class CadastroCliente extends AppCompatActivity {
             chelper.preecheFormulario(cliente);
         }
 
+        btn_cadastrarcliente.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-
-
-
+            }
+        });
 
 
     }

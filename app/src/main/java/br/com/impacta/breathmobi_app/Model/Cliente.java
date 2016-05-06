@@ -1,4 +1,8 @@
 package br.com.impacta.breathmobi_app.Model;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
+
 import java.io.Serializable;
 
 /**
@@ -6,6 +10,7 @@ import java.io.Serializable;
  */
 public class Cliente implements Serializable {
 
+    private static String PREF = "BREATHMOBI";
     private String Id;
     private String nome;
     private int idade;
@@ -16,12 +21,18 @@ public class Cliente implements Serializable {
     private double altura;
     private double peso;
 
+
+
+    public Cliente() {
+
+    }
+
     public String getId() {
         return Id;
     }
 
     public void setId(String id) {
-        Id = id;
+        this.Id = id;
     }
 
     public String getNome() {
@@ -86,6 +97,20 @@ public class Cliente implements Serializable {
 
     public void setPeso(double peso) {
         this.peso = peso;
+    }
+
+    static public void saveToken(Context context, String key, String value ){
+        SharedPreferences sp = context.getSharedPreferences(PREF, Context.MODE_PRIVATE);
+        sp.edit().putString(key, value).apply();
+    }
+    static public void saveID(Context context, String key, String value ){
+        SharedPreferences sp = context.getSharedPreferences(PREF, Context.MODE_PRIVATE);
+        sp.edit().putString(key, value).apply();
+    }
+    static public String getToken(Context context, String key ){
+        SharedPreferences sp = context.getSharedPreferences(PREF, Context.MODE_PRIVATE);
+        String token = sp.getString(key, "");
+        return( token );
     }
 
 

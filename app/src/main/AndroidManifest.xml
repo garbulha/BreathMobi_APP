@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="br.com.impacta.breathmobi_app">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+
     <application
 
         android:allowBackup="true"
@@ -19,6 +22,9 @@
         <activity android:name=".View.MainActivity"
             android:theme="@style/AppTheme.Login"/>
         <activity android:name=".View.CadastroCliente"/>
+        <activity android:name=".View.Logado"/>
+        <activity android:name=".View.EditarCliente"/>
+
 
 
     </application>

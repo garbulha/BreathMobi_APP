@@ -1,65 +1,105 @@
 package br.com.impacta.breathmobi_app.Controller;
 
-import android.renderscript.Double2;
+import android.app.Activity;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.util.Log;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
+
+import java.util.Map;
 
 import br.com.impacta.breathmobi_app.Model.Cliente;
 import br.com.impacta.breathmobi_app.R;
-import br.com.impacta.breathmobi_app.View.CadastroCliente;
+import br.com.impacta.breathmobi_app.Util.UtilLogin;
+
 
 /**
  * Created by TGarbulha on 01/05/2016.
  */
 public class ClienteHelper {
 
-    private final EditText nome;
-    private final EditText idade;
-    private final EditText usuario;
-    private final EditText senha;
-    private final EditText sexo;
-    private final EditText macAdress;
-    private final EditText altura;
-    private final EditText peso;
+    public static String TOKEN = "br.com.impacta.brathmobi.Model.ClienteHelper.TOKEN";
+    public static String ID = "br.com.impacta.brathmobi.Model.ClienteHelper.ID";
+
+    private EditText nome;
+    private EditText idade;
+    private EditText usuario;
+    private EditText senha;
+    private EditText sexo;
+    private EditText macAddres;
+    private EditText altura;
+    private EditText peso;
 
     private Cliente cliente;
 
-    public ClienteHelper(CadastroCliente activity) {
+    public ClienteHelper(){}
+
+    public void saveDB(){
+        Firebase firebase =  UtilLogin.getFirebase().child("Usuario").child(cliente.getId());
+        firebase.setValue(cliente);
+    }
+
+    public ClienteHelper (DialogInterface dialog) {
 
         // Pegando o que foi digitado no formulario //
-        nome = (EditText) activity.findViewById(R.id.cadastro_nome);
-        idade = (EditText) activity.findViewById(R.id.cadastro_idade);
-        usuario = (EditText) activity.findViewById(R.id.cadastro_usuario);
-        senha = (EditText) activity.findViewById(R.id.cadastro_senha);
-        macAdress = (EditText) activity.findViewById(R.id.cadastro_macadress);
-        sexo = (EditText) activity.findViewById(R.id.cadastro_sexo);
-        altura = (EditText) activity.findViewById(R.id.cadastro_altura);
-        peso = (EditText) activity.findViewById(R.id.cadastro_peso);
-        cliente = new Cliente();
-
+        this.nome = (EditText) ((Dialog) dialog).findViewById(R.id.cadastro_nome);
+        this.idade = (EditText) ((Dialog) dialog).findViewById(R.id.cadastro_idade);
+        this.usuario = (EditText) ((Dialog) dialog).findViewById(R.id.cadastro_usuario);
+        this.senha = (EditText) ((Dialog) dialog).findViewById(R.id.cadastro_senha);
+        this.macAddres = (EditText) ((Dialog) dialog).findViewById(R.id.cadastro_macaddres);
+        this.sexo = (EditText) ((Dialog) dialog).findViewById(R.id.cadastro_sexo);
+        this.altura = (EditText) ((Dialog) dialog).findViewById(R.id.cadastro_altura);
+        this.peso = (EditText) ((Dialog) dialog).findViewById(R.id.cadastro_peso);
+        this.cliente = new Cliente();
     }
+
     //
     public Cliente pegaCliente() {
 
-        cliente.setNome(nome.getText().toString());
-        cliente.setIdade(Integer.valueOf(idade.getText().toString()));
-        cliente.setUsuario(usuario.getText().toString());
-        cliente.setSenha(senha.getText().toString());
-        cliente.setMacAdress(macAdress.getText().toString());
-        cliente.setAltura(Double.valueOf(altura.getText().toString()));
-        cliente.setPeso(Double.valueOf(peso.getText().toString()));
-        return cliente;
+        this.cliente.setNome(nome.getText().toString());
+        this.cliente.setIdade(Integer.valueOf(idade.getText().toString()));
+        this.cliente.setUsuario(usuario.getText().toString());
+        this.cliente.setSenha(senha.getText().toString());
+        this.cliente.setMacAdress(macAddres.getText().toString());
+        this.cliente.setSexo(sexo.getText().toString());
+        this.cliente.setAltura(Double.valueOf(altura.getText().toString()));
+        this.cliente.setPeso(Double.valueOf(peso.getText().toString()));
+        return this.cliente;
     }
+    public void contextDataDB( Context context ){
+        //retrieveIdSP(context);
+        Firebase firebase = UtilLogin.getFirebase().child("users").child(cliente.getId());
 
+        firebase.addListenerForSingleValueEvent((ValueEventListener) context);
+    }
+    //Preencher com as informações do Usuario
     public void preecheFormulario(Cliente cliente) {
         nome.setText(cliente.getNome());
         idade.setText(cliente.getIdade());
         usuario.setText(cliente.getUsuario());
         senha.setText(cliente.getSenha());
-        macAdress.setText(cliente.getMacAdress());
+        macAddres.setText(cliente.getMacAdress());
         altura.setText((int) cliente.getAltura());
         peso.setText((int) cliente.getPeso());
 
         this.cliente = cliente;
     }
+
+    public String getTokenSP(Context context ){
+        return( UtilLogin.getSP( context, TOKEN ) );
+    }
+    public void saveTokenSP(Context context, String token ){
+        UtilLogin.saveSP( context, TOKEN, token );
+    }
+    public void saveIdSP(Context context, String token ){
+        UtilLogin.saveSP( context, ID, token );
+    }
+
 
 }
