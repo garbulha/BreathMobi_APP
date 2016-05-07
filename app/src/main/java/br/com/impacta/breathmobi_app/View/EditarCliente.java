@@ -1,5 +1,6 @@
 package br.com.impacta.breathmobi_app.View;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -25,9 +26,15 @@ public class EditarCliente extends ComumActivity implements ValueEventListener, 
     private Firebase firebase;
     private ChildEventListener ceListener;
     private EditText ed_nome;
+    private EditText ed_dtnasc;
+    private EditText ed_sexo;
+    private EditText ed_altura;
+    private EditText ed_peso;
+    private EditText ed_macaddres;
+
+
     private Button btn_alterar;
     private ClienteHelper cHelper;
-    private Cliente cliente;
 
 
     @Override
@@ -47,9 +54,23 @@ public class EditarCliente extends ComumActivity implements ValueEventListener, 
         btn_alterar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Cliente cliente = new Cliente();
-                cliente.setNome(ed_nome.getText().toString());
-                cHelper.updateDB(EditarCliente.this,cliente);
+                try {
+                    Cliente cliente = new Cliente();
+                    cliente.setNome(ed_nome.getText().toString());
+                    cliente.setIdade(ed_dtnasc.getText().toString());
+                    cliente.setSexo(ed_sexo.getText().toString());
+                    cliente.setAltura(ed_altura.getText().toString());
+                    cliente.setPeso(ed_peso.getText().toString());
+                    cliente.setMacAdress(ed_macaddres.getText().toString());
+                    cHelper.updateDB(EditarCliente.this, cliente);
+                    showToast("Alteração com Sucesso");
+                } catch (Exception exc) {
+                    showToast(exc.getMessage());
+                }finally {
+                    startActivity(new Intent(getApplicationContext(), Logado.class));
+                    finish();
+                }
+
             }
         });
 
@@ -61,9 +82,14 @@ public class EditarCliente extends ComumActivity implements ValueEventListener, 
         firebase.addChildEventListener(ceListener);
         btn_alterar = (Button) findViewById(R.id.alterar_btn_alterar);
         ed_nome = (EditText) findViewById(R.id.altera_nome);
+        ed_dtnasc = (EditText) findViewById(R.id.altera_idade);
+        ed_sexo = (EditText) findViewById(R.id.altera_sexo);
+        ed_altura = (EditText) findViewById(R.id.altera_altura);
+        ed_peso = (EditText) findViewById(R.id.altera_peso);
+        ed_macaddres = (EditText) findViewById(R.id.altera_macaddres);
+
 
     }
-
 
 
     @Override
@@ -76,7 +102,11 @@ public class EditarCliente extends ComumActivity implements ValueEventListener, 
     public void onDataChange(DataSnapshot dataSnapshot) {
         Cliente cliente = dataSnapshot.getValue(Cliente.class);
         ed_nome.setText(cliente.getNome());
-
+        ed_sexo.setText(cliente.getSexo());
+        ed_dtnasc.setText(cliente.getIdade());
+        ed_macaddres.setText(cliente.getMacAdress());
+        ed_altura.setText(cliente.getAltura());
+        ed_peso.setText(cliente.getPeso());
 
     }
 
@@ -88,7 +118,7 @@ public class EditarCliente extends ComumActivity implements ValueEventListener, 
     public void onComplete(FirebaseError firebaseError, Firebase firebase) {
         if (firebaseError != null) {
             showToast("Erro");
-        }else{
+        } else {
             showToast("Alteração com Sucesso!!");
         }
     }

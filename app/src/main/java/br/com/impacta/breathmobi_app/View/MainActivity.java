@@ -101,7 +101,7 @@ public class MainActivity extends ComumActivity implements View.OnClickListener 
                 builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        showToast("Cancelar");
+
                     }
                 });
 
@@ -122,6 +122,7 @@ public class MainActivity extends ComumActivity implements View.OnClickListener 
                                 showToast("Autenticado");
                                 Intent mIntent = new Intent(getApplicationContext(), Logado.class);
                                 startActivity(mIntent);
+                                finish();
                             }
 
                             @Override

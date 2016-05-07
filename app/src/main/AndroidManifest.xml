@@ -22,7 +22,8 @@
             android:theme="@style/AppTheme.Login" />
         <activity android:name=".View.CadastroCliente" />
         <activity android:name=".View.Logado" />
-        <activity android:name=".View.EditarCliente" />
+        <activity android:name=".View.EditarCliente"
+            android:theme="@style/AppTheme.Perfil"/>
     </application>
 
 </manifest>

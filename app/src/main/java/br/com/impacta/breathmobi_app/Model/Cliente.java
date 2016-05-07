@@ -16,13 +16,13 @@ public class Cliente{
     private static String PREF = "BREATHMOBI";
     private String Id;
     private String nome;
-    private int idade;
+    private String idade;
     private String usuario;
     private String senha;
     private String sexo;
     private String macAdress;
-    private double altura;
-    private double peso;
+    private String altura;
+    private String peso;
 
 
 
@@ -46,11 +46,11 @@ public class Cliente{
         this.nome = nome;
     }
 
-    public int getIdade() {
+    public String getIdade() {
         return idade;
     }
 
-    public void setIdade(int idade) {
+    public void setIdade(String idade) {
         this.idade = idade;
     }
 
@@ -86,19 +86,19 @@ public class Cliente{
         this.macAdress = macAdress;
     }
 
-    public double getAltura() {
+    public String getAltura() {
         return altura;
     }
 
-    public void setAltura(double altura) {
+    public void setAltura(String altura) {
         this.altura = altura;
     }
 
-    public double getPeso() {
+    public String getPeso() {
         return peso;
     }
 
-    public void setPeso(double peso) {
+    public void setPeso(String peso) {
         this.peso = peso;
     }
 

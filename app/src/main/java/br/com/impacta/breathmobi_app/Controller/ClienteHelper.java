@@ -56,6 +56,11 @@ public class ClienteHelper {
         Firebase firebase = UtilLogin.getFirebase().child("Usuario").child(cliente.getId());
         Map<String, Object> map = new HashMap<>();
         map.put("nome", c.getNome());
+        map.put("idade", c.getIdade());
+        map.put("sexo", c.getSexo());
+        map.put("altura", c.getAltura());
+        map.put("peso", c.getPeso());
+        map.put("macAdress", c.getMacAdress());
 
         if(map.isEmpty()){
             return;
@@ -85,13 +90,13 @@ public class ClienteHelper {
     public Cliente pegaCliente() {
         try {
             this.cliente.setNome(nome.getText().toString());
-            this.cliente.setIdade(Integer.valueOf(idade.getText().toString()));
+            this.cliente.setIdade(idade.getText().toString());
             this.cliente.setUsuario(usuario.getText().toString());
             this.cliente.setSenha(senha.getText().toString());
             this.cliente.setMacAdress(macAddres.getText().toString());
             this.cliente.setSexo(sexo.getText().toString());
-            this.cliente.setAltura(Double.valueOf(altura.getText().toString()));
-            this.cliente.setPeso(Double.valueOf(peso.getText().toString()));
+            this.cliente.setAltura(altura.getText().toString());
+            this.cliente.setPeso(peso.getText().toString());
             return this.cliente;
         } finally {
             return this.cliente;
@@ -113,8 +118,8 @@ public class ClienteHelper {
         this.usuario.setText(cliente.getUsuario());
         this.senha.setText(cliente.getSenha());
         this.macAddres.setText(cliente.getMacAdress());
-        this.altura.setText((int) cliente.getAltura());
-        this.peso.setText((int) cliente.getPeso());
+        this.altura.setText(cliente.getAltura());
+        this.peso.setText(cliente.getPeso());
 
         this.cliente = cliente;
     }
