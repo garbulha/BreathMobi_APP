@@ -3,12 +3,15 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
 
 /**
  * Created by TGarbulha on 26/04/2016.
  */
-public class Cliente implements Serializable {
+@JsonIgnoreProperties({"id", "senha", "usuario"})
+public class Cliente{
 
     private static String PREF = "BREATHMOBI";
     private String Id;

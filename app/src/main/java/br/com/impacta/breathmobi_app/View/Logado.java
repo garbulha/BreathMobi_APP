@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+
 import com.firebase.client.Firebase;
 
-import br.com.impacta.breathmobi_app.Listeners.FirebaseValueEventListener;
+
+import br.com.impacta.breathmobi_app.Listener.ChildEventListener;
 import br.com.impacta.breathmobi_app.R;
 import br.com.impacta.breathmobi_app.Util.ComumActivity;
 import br.com.impacta.breathmobi_app.Util.UtilLogin;
@@ -18,8 +20,9 @@ import br.com.impacta.breathmobi_app.Util.UtilLogin;
  */
 public class Logado extends ComumActivity implements View.OnClickListener {
     private Button btn_logout;
+    private Button btn_editarcliente;
     private Firebase firebase;
-    private FirebaseValueEventListener fvEventListener;
+    private ChildEventListener ceListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,13 +33,16 @@ public class Logado extends ComumActivity implements View.OnClickListener {
         iniciarVariavel();
 
         btn_logout.setOnClickListener(this);
+        btn_editarcliente.setOnClickListener(this);
 
     }
 
     private void iniciarVariavel() {
         btn_logout = (Button) findViewById(R.id.btn_logado_logout);
-        firebase = UtilLogin.getFirebase();
-        firebase.addValueEventListener(fvEventListener);
+        btn_editarcliente = (Button) findViewById(R.id.btn_logado_editarcliente);
+        firebase = UtilLogin.getFirebase().child("Usuario");
+        ceListener = new ChildEventListener();
+        firebase.addChildEventListener(ceListener);
 
     }
 
@@ -50,8 +56,19 @@ public class Logado extends ComumActivity implements View.OnClickListener {
                 startActivity(mIntent);
                 finish();
                 break;
+            case R.id.btn_logado_editarcliente:
+                Intent mIntent1 = new Intent(this, EditarCliente.class);
+                startActivity(mIntent1);
+
+                break;
+
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        firebase.removeEventListener(ceListener);
+    }
 }
 

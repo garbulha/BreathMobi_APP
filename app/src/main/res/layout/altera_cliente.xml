@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -9,8 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="15dp"
-        >
+        android:padding="15dp">
 
 
         <EditText
@@ -19,16 +17,14 @@
             android:layout_height="wrap_content"
             android:hint="Nome"
             android:inputType="text"
-            android:textColorHint="@color/colorLightPimaryColor"
-            android:background="@drawable/border_cadastro"
-            android:padding="2dp"
-             />
+
+            />
 
         <EditText
             android:id="@+id/altera_idade"
-            android:layout_width="55dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Idade"
+            android:hint="Data Nascimento"
             android:inputType="number"
 
 
@@ -39,23 +35,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Sexo"
-            android:inputType="text"
-            />
+            android:inputType="text" />
 
         <EditText
             android:id="@+id/altera_altura"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Altura"
-            android:inputType="numberDecimal"
-            />
+            android:inputType="numberDecimal" />
+
         <EditText
             android:id="@+id/altera_peso"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Peso"
-            android:inputType="numberDecimal"
-            />
+            android:inputType="numberDecimal" />
+
         <EditText
             android:id="@+id/altera_macaddres"
             android:layout_width="match_parent"
@@ -64,15 +59,38 @@
             android:inputType="text"
 
             />
+
         <EditText
             android:id="@+id/altera_usuario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
-            android:inputType="textEmailAddress"
-            />
+            android:inputType="textEmailAddress" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            >
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Cancelar" />
 
 
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Alterar"
+                android:id="@+id/alterar_btn_alterar"
+
+                />
+
+        </LinearLayout>
 
 
     </LinearLayout>

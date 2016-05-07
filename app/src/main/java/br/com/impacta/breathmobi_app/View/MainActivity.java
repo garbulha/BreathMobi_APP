@@ -74,18 +74,18 @@ public class MainActivity extends ComumActivity implements View.OnClickListener 
         progressBar = (ProgressBar) findViewById(R.id.login_progressbar);
         cHelper = new ClienteHelper();
 
+
     }
 
     @Override
     public void onClick(View v) {
-        LayoutInflater li = getLayoutInflater();
-        View viewCadastro = li.inflate(R.layout.cadastro_cliente, null);
+
         switch (v.getId()) {
             case R.id.telainicial_cadastrar:
-//
+
                 final AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle("Novo Cadastro");
-                builder.setView(viewCadastro);
+                builder.setView(R.layout.cadastro_cliente);
 
                 builder.setPositiveButton("Inserir", new DialogInterface.OnClickListener() {
                     @Override
@@ -117,6 +117,7 @@ public class MainActivity extends ComumActivity implements View.OnClickListener 
                         new Firebase.AuthResultHandler() {
                             @Override
                             public void onAuthenticated(AuthData authData) {
+                                cHelper.saveIdSP(MainActivity.this, authData.getUid());
                                 closeProgressBar();
                                 showToast("Autenticado");
                                 Intent mIntent = new Intent(getApplicationContext(), Logado.class);
@@ -133,12 +134,10 @@ public class MainActivity extends ComumActivity implements View.OnClickListener 
                 break;
 
             case R.id.telainicial_esqueceusenha:
-                LayoutInflater li1 = getLayoutInflater();
-                View viewEsqueceuSenha = li.inflate(R.layout.esqueceusenha, null);
 
                 final AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
                 builder1.setTitle("Esqueceu Senha");
-                builder1.setView(viewEsqueceuSenha);
+                builder1.setView(R.layout.esqueceusenha);
 
                 builder1.setPositiveButton("Inserir", new DialogInterface.OnClickListener() {
                     @Override
@@ -165,28 +164,34 @@ public class MainActivity extends ComumActivity implements View.OnClickListener 
 
     // Metodo para cadastrar Usuario novo //
     private void cadastrarUsuario(final Cliente cliente) {
-        firebase.createUser(
-                cliente.getUsuario(),
-                cliente.getSenha(),
-                new Firebase.ValueResultHandler<Map<String, Object>>() {
-                    @Override
-                    public void onSuccess(Map<String, Object> stringObjectMap) {
-                        cliente.setId(stringObjectMap.get("uid").toString());
-                        cHelper.saveDB(); // cadastro no bd
-                        firebase.unauth(); // Deslogue
-                        closeProgressBar();
-                        showToast("Cadastro Realizado com Sucesso!!!");
+        try {
+            firebase.createUser(
+                    cliente.getUsuario(),
+                    cliente.getSenha(),
+                    new Firebase.ValueResultHandler<Map<String, Object>>() {
+                        @Override
+                        public void onSuccess(Map<String, Object> stringObjectMap) {
+                            cliente.setId(stringObjectMap.get("uid").toString());
+                            cHelper.saveDB(); // cadastro no bd
+                            firebase.unauth(); // Deslogue
+                            closeProgressBar();
+                            showToast("Cadastro Realizado com Sucesso!!!");
 
+                        }
+
+                        @Override
+                        public void onError(FirebaseError firebaseError) {
+                            closeProgressBar();
+                            showToast(firebaseError.getMessage());
+
+                        }
                     }
+            );
+        } catch (Exception e) {
+            closeProgressBar();
+            showToast("Erro ao Cadastrar!!");
+        }
 
-                    @Override
-                    public void onError(FirebaseError firebaseError) {
-                        closeProgressBar();
-                        showToast(firebaseError.getMessage());
-
-                    }
-                }
-        );
     }
 
 
