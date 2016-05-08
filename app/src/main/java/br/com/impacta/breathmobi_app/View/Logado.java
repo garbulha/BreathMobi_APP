@@ -1,15 +1,21 @@
 package br.com.impacta.breathmobi_app.View;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.accountswitcher.AccountHeader;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
@@ -18,9 +24,11 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
 import br.com.impacta.breathmobi_app.Listener.ChildEventListener;
+import br.com.impacta.breathmobi_app.Model.Cliente;
 import br.com.impacta.breathmobi_app.R;
 import br.com.impacta.breathmobi_app.Util.ComumActivity;
 import br.com.impacta.breathmobi_app.Util.UtilLogin;
+import br.com.impacta.breathmobi_app.View.Frag.FragEditarPerfil;
 import br.com.impacta.breathmobi_app.View.Frag.FragHistorico;
 import br.com.impacta.breathmobi_app.View.Frag.FragTesteAlcool;
 import br.com.impacta.breathmobi_app.View.Frag.FragVoltaSegura;
@@ -29,7 +37,7 @@ import br.com.impacta.breathmobi_app.View.Frag.FragVoltaSegura;
 /**
  * Created by TGarbulha on 07/05/2016.
  */
-public class Logado extends ComumActivity {
+public class Logado extends ComumActivity implements ValueEventListener, Firebase.CompletionListener {
     private Context context;
     private Drawer.Result HamburguerLeft;
     private AccountHeader.Result headerNavigationLeft;
@@ -38,6 +46,11 @@ public class Logado extends ComumActivity {
     private FragmentTransaction ft;
     private Firebase firebase;
     private ChildEventListener ceListener;
+
+    private FragTesteAlcool fragAlcool;
+    private FragVoltaSegura fragVolta;
+    private FragHistorico fragHistorico;
+    private FragEditarPerfil fragPerfil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,8 +91,7 @@ public class Logado extends ComumActivity {
 
                     @Override
                     public boolean onClick(View view, IProfile profile) {
-                        ft.replace(R.id.container_frag, frag, "frag");
-                        ft.commit();
+
                         return true;
                     }
                 })
@@ -106,25 +118,90 @@ public class Logado extends ComumActivity {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l, IDrawerItem iDrawerItem) {
 
-                       mToolbar.setTitle(((PrimaryDrawerItem) iDrawerItem).getName());
+                        FragmentManager fm = getSupportFragmentManager();
+                        String sTag = "";
 
-                            if(i == 0){ // Realizar Teste
-                                frag = new FragTesteAlcool();
-                            }
-                            else if(i == 1){ // LUXURY CAR
-                                frag = new FragVoltaSegura();
-                            }
-                            else if(i == 2){ // SPORT CAR
-                                frag = new FragHistorico();
-                            }
-                            else if(i == 3){ // OLD CAR
-                                showToast("Logout");
-                            }
+                        switch (i) {
+                            case 0:
+                                sTag = "fragAlcool";
+                                //
+                                if (fragAlcool == null) {
+                                    fragAlcool = new FragTesteAlcool();
+                                }
+                                //
+                                if (fm.findFragmentByTag(sTag) == null) {
+                                    mToolbar.setTitle(((PrimaryDrawerItem) iDrawerItem).getName());
+                                    FragmentTransaction ft = fm.beginTransaction();
+                                    ft.replace(R.id.container_frag, fragAlcool, sTag);
+                                    ft.commit();
+                                }
 
-                        ft.replace(R.id.container_frag, frag, "frag");
-                        ft.commit();
+                                break;
+                            case 1:
+                                sTag = "fragPerfil";
+                                //
+                                if (fragPerfil == null) {
+                                    fragPerfil = new FragEditarPerfil();
+                                }
+                                //
+                                if (fm.findFragmentByTag(sTag) == null) {
+                                    mToolbar.setTitle(((PrimaryDrawerItem) iDrawerItem).getName());
+                                    FragmentTransaction ft = fm.beginTransaction();
+                                    ft.replace(R.id.container_frag, fragPerfil, sTag);
+                                    ft.commit();
+
+                                }
+                                fragPerfil.setOnClickListener(new FragEditarPerfil.IFragPerfil() {
+                                    @Override
+                                    public void update() {
+
+                                    }
+                                });
+
+                                break;
 
 
+                            case 2:
+                                sTag = "fragVolta";
+                                //
+                                if (fragVolta == null) {
+                                    fragVolta = new FragVoltaSegura();
+                                }
+                                //
+                                if (fm.findFragmentByTag(sTag) == null) {
+                                    mToolbar.setTitle(((PrimaryDrawerItem) iDrawerItem).getName());
+                                    FragmentTransaction ft = fm.beginTransaction();
+                                    ft.replace(R.id.container_frag, fragVolta, sTag);
+                                    ft.commit();
+                                }
+                                break;
+
+                            case 3:
+                                sTag = "fragHistorico";
+                                //
+                                if (fragHistorico == null) {
+                                    fragHistorico = new FragHistorico();
+                                }
+                                //
+                                if (fm.findFragmentByTag(sTag) == null) {
+                                    mToolbar.setTitle(((PrimaryDrawerItem) iDrawerItem).getName());
+                                    FragmentTransaction ft = fm.beginTransaction();
+                                    ft.replace(R.id.container_frag, fragHistorico, sTag);
+                                    ft.commit();
+                                }
+                                break;
+
+                            case 4:
+                                firebase.unauth();
+                                startActivity(new Intent(Logado.this, MainActivity.class));
+                                finish();
+                                break;
+
+                            default:
+                                Log.d("Erro", "Implementacao Pendente!!!");
+                                break;
+
+                        }
 
                     }
                 })
@@ -142,7 +219,11 @@ public class Logado extends ComumActivity {
                 .withIcon(getResources()
                         .getDrawable(R.drawable.facebook_button)));
         //
-
+        HamburguerLeft.addItem(new PrimaryDrawerItem()
+                .withName("Perfil")
+                .withIcon(getResources()
+                        .getDrawable(R.drawable.facebook_button)));
+        //
         HamburguerLeft.addItem(new PrimaryDrawerItem()
                 .withName("Volta Segura")
                 .withIcon(getResources()
@@ -181,4 +262,20 @@ public class Logado extends ComumActivity {
     }
 
 
+    @Override
+    public void onComplete(FirebaseError firebaseError, Firebase firebase) {
+
+    }
+
+    @Override
+    public void onDataChange(DataSnapshot dataSnapshot) {
+        Cliente cliente = dataSnapshot.getValue(Cliente.class);
+        fragPerfil.setInfos(cliente);
+ 
+    }
+
+    @Override
+    public void onCancelled(FirebaseError firebaseError) {
+
+    }
 }
