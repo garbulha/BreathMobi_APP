@@ -27,8 +27,8 @@
         <activity android:name=".View.EditarCliente"
             android:theme="@style/AppTheme.Perfil"/>
 
-        <activity android:name=".View.LogadoTeste"
-            android:theme="@style/AppTheme.teste"/>
+        <activity android:name=".View.Logado"
+            android:theme="@style/AppTheme.logado"/>
     </application>
 
 </manifest>

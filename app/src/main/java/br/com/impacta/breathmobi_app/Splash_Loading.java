@@ -1,10 +1,8 @@
 package br.com.impacta.breathmobi_app;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.widget.Toast;
 
 import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
@@ -14,7 +12,6 @@ import br.com.impacta.breathmobi_app.Controller.ClienteHelper;
 import br.com.impacta.breathmobi_app.Util.ComumActivity;
 import br.com.impacta.breathmobi_app.Util.UtilLogin;
 import br.com.impacta.breathmobi_app.View.Logado;
-import br.com.impacta.breathmobi_app.View.LogadoTeste;
 import br.com.impacta.breathmobi_app.View.MainActivity;
 
 /**
@@ -44,7 +41,7 @@ public class Splash_Loading extends ComumActivity implements Runnable {
         verifyUserLogged();
 
         if(Flag == "sLogado"){
-            startActivity(new Intent(this, LogadoTeste.class));
+            startActivity(new Intent(this, Logado.class));
         }else{
             startActivity(new Intent(this, MainActivity.class));
         }
@@ -66,7 +63,7 @@ public class Splash_Loading extends ComumActivity implements Runnable {
                             public void onAuthenticated(AuthData authData) {
                                 cHelper.saveTokenSP(Splash_Loading.this, authData.getToken());
                                 cHelper.saveIdSP(Splash_Loading.this, authData.getUid());
-                                startActivity(new Intent(getApplicationContext(), LogadoTeste.class));
+                                startActivity(new Intent(getApplicationContext(), Logado.class));
                                 finish();
                             }
 

@@ -141,8 +141,9 @@ public class ClienteHelper {
         Log.i("xiiii",UtilLogin.getSP(context, ID ));
         this.cliente.setId(UtilLogin.getSP(context, ID));
     }
-
-
-
-
 }
+
+
+
+
+

@@ -47,7 +47,7 @@ public class EditarCliente extends ComumActivity implements ValueEventListener, 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.altera_cliente);
+        setContentView(R.layout.frag_editarperfil);
         firebase.setAndroidContext(this);
         iniciarVariavel();
 

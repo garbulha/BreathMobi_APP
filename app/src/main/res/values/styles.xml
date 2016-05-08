@@ -25,12 +25,24 @@
         <item name="android:focusable">false</item>
 
     </style>
-    <style name="AppTheme.teste" parent="MaterialDrawerTheme.Light.DarkToolbar.TranslucentStatus">
-        <item name="colorAccent">@color/colorLightPimaryColor</item>
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <!--<style name="AppTheme.teste" parent="MaterialDrawerTheme.Light.DarkToolbar.TranslucentStatus">-->
+        <!--<item name="colorAccent">@color/colorLightPimaryColor</item>-->
+        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
+        <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+
+
+
+    <style name="AppTheme.logado" parent="Theme.AppCompat.Light.NoActionBar">
+    <item name="colorAccent">@color/colorLightPimaryColor</item>
+    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <item name="colorControlNormal">@android:color/white</item>
+    <item name="material_drawer_primary_text">@color/md_black_1000</item>
+    <item name="material_drawer_selected_text">@color/colorPrimaryDark</item>
 
 
     </style>
+
+
 
 </resources>
