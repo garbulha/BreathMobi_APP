@@ -271,7 +271,7 @@ public class Logado extends ComumActivity implements ValueEventListener, Firebas
     public void onDataChange(DataSnapshot dataSnapshot) {
         Cliente cliente = dataSnapshot.getValue(Cliente.class);
         fragPerfil.setInfos(cliente);
- 
+
     }
 
     @Override

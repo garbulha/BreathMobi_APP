@@ -29,7 +29,7 @@ import br.com.impacta.breathmobi_app.View.Logado;
 /**
  * Created by TGarbulha on 07/05/2016.
  */
-public class FragEditarPerfil extends Fragment implements ValueEventListener, Firebase.CompletionListener{
+public class FragEditarPerfil extends Fragment {
     private Firebase firebase;
     private ChildEventListener ceListener;
     private EditText ed_nome;
@@ -71,6 +71,7 @@ public class FragEditarPerfil extends Fragment implements ValueEventListener, Fi
         ed_peso = (EditText) v.findViewById(R.id.altera_peso);
         ed_macaddres = (EditText) v.findViewById(R.id.altera_macaddres);
     }
+
     private void inicializarAcao() {
         btn_alterar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,10 +85,10 @@ public class FragEditarPerfil extends Fragment implements ValueEventListener, Fi
                     cliente.setPeso(ed_peso.getText().toString());
                     cliente.setMacAdress(ed_macaddres.getText().toString());
                     cHelper.updateDB(getContext(), cliente);
-                    Toast.makeText(getContext(),"ALteração com Sucesso",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "ALteração com Sucesso", Toast.LENGTH_SHORT).show();
                 } catch (Exception exc) {
-                    Toast.makeText(getContext(),exc.getMessage(),Toast.LENGTH_SHORT).show();
-                }finally {
+                    Toast.makeText(getContext(), exc.getMessage(), Toast.LENGTH_SHORT).show();
+                } finally {
 
                 }
 
@@ -103,6 +104,7 @@ public class FragEditarPerfil extends Fragment implements ValueEventListener, Fi
     public void setOnClickListener(IFragPerfil delegate) {
         this.delegate = delegate;
     }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -110,37 +112,12 @@ public class FragEditarPerfil extends Fragment implements ValueEventListener, Fi
     }
 
 
-    @Override
-    public void onComplete(FirebaseError firebaseError, Firebase firebase) {
-        if (firebaseError != null) {
-
-        } else {
-
-        }
-    }
-
-    public void setInfos(Cliente cliente){
+    public void setInfos(Cliente cliente) {
         ed_nome.setText(cliente.getNome());
         ed_sexo.setText(cliente.getSexo());
         ed_dtnasc.setText(cliente.getIdade());
         ed_macaddres.setText(cliente.getMacAdress());
         ed_altura.setText(cliente.getAltura());
         ed_peso.setText(cliente.getPeso());
-    }
-
-    @Override
-    public void onDataChange(DataSnapshot dataSnapshot) {
-        Cliente cliente = dataSnapshot.getValue(Cliente.class);
-        ed_nome.setText(cliente.getNome());
-        ed_sexo.setText(cliente.getSexo());
-        ed_dtnasc.setText(cliente.getIdade());
-        ed_macaddres.setText(cliente.getMacAdress());
-        ed_altura.setText(cliente.getAltura());
-        ed_peso.setText(cliente.getPeso());
-    }
-
-    @Override
-    public void onCancelled(FirebaseError firebaseError) {
-
     }
 }
