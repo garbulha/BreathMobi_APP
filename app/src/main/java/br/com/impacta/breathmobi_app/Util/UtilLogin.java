@@ -5,12 +5,15 @@ import android.content.SharedPreferences;
 
 import com.firebase.client.Firebase;
 
+import br.com.impacta.breathmobi_app.Model.Cliente;
+
 /**
  * Created by TGarbulha on 05/05/2016.
  */
 public final class UtilLogin {
 
     public static String PREF = "br.com.impacta.breathmobi.PREF";
+    public static String NOME;
     private static Firebase firebase;
 
     public UtilLogin() {
@@ -22,6 +25,14 @@ public final class UtilLogin {
         }
 
         return( firebase );
+    }
+
+    public static void setNOME(Cliente cliente){
+        NOME = cliente.getNome();
+    }
+
+    public static String getNOME(){
+        return NOME = new Cliente().getNome();
     }
 
 

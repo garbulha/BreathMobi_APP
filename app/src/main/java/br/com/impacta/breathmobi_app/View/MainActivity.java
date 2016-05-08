@@ -118,7 +118,7 @@ public class MainActivity extends ComumActivity implements View.OnClickListener 
                             public void onAuthenticated(AuthData authData) {
                                 cHelper.saveIdSP(MainActivity.this, authData.getUid());
                                 closeProgressBar();
-                                
+
                                 Intent mIntent = new Intent(getApplicationContext(), Logado.class);
                                 startActivity(mIntent);
                                 finish();

@@ -3,11 +3,9 @@ package br.com.impacta.breathmobi_app.View;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,11 +16,14 @@ import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.accountswitcher.AccountHeader;
+import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
+import br.com.impacta.breathmobi_app.Constantes;
+import br.com.impacta.breathmobi_app.Controller.ClienteHelper;
 import br.com.impacta.breathmobi_app.Listener.ChildEventListener;
 import br.com.impacta.breathmobi_app.Model.Cliente;
 import br.com.impacta.breathmobi_app.R;
@@ -38,12 +39,9 @@ import br.com.impacta.breathmobi_app.View.Frag.FragVoltaSegura;
  * Created by TGarbulha on 07/05/2016.
  */
 public class Logado extends ComumActivity implements ValueEventListener, Firebase.CompletionListener {
-    private Context context;
     private Drawer.Result HamburguerLeft;
     private AccountHeader.Result headerNavigationLeft;
     private Toolbar mToolbar;
-    private Fragment frag;
-    private FragmentTransaction ft;
     private Firebase firebase;
     private ChildEventListener ceListener;
 
@@ -51,6 +49,12 @@ public class Logado extends ComumActivity implements ValueEventListener, Firebas
     private FragVoltaSegura fragVolta;
     private FragHistorico fragHistorico;
     private FragEditarPerfil fragPerfil;
+    private Cliente cliente;
+    private ClienteHelper cHelper;
+    private  String sTag = "";
+
+    public static int ENABLE_BLUETOOTH = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,14 +66,13 @@ public class Logado extends ComumActivity implements ValueEventListener, Firebas
     }
 
     private void inicializarVariavel() {
-        context = getBaseContext();
+        cliente = new Cliente();
         mToolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(mToolbar);
-        ft = getSupportFragmentManager().beginTransaction();
         firebase = UtilLogin.getFirebase().child("Usuario");
         ceListener = new ChildEventListener();
         firebase.addChildEventListener(ceListener);
-
+        cHelper = new ClienteHelper();
     }
 
 
@@ -81,8 +84,7 @@ public class Logado extends ComumActivity implements ValueEventListener, Firebas
                 .withCompactStyle(false)
                 .withHeaderBackground(R.drawable.gradient)
                 .addProfiles(new ProfileDrawerItem()
-                                .withName("Thiago")
-                                .withEmail("thiago@hotmail.com")
+                                .withName("Olá! " + UtilLogin.getNOME())
                                 .withIcon(getResources()
                                         .getDrawable(R.drawable.perfil1))
 
@@ -119,7 +121,7 @@ public class Logado extends ComumActivity implements ValueEventListener, Firebas
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l, IDrawerItem iDrawerItem) {
 
                         FragmentManager fm = getSupportFragmentManager();
-                        String sTag = "";
+
 
                         switch (i) {
                             case 0:
@@ -198,7 +200,7 @@ public class Logado extends ComumActivity implements ValueEventListener, Firebas
                                 break;
 
                             default:
-                                Log.d("Erro", "Implementacao Pendente!!!");
+
                                 break;
 
                         }
@@ -234,6 +236,9 @@ public class Logado extends ComumActivity implements ValueEventListener, Firebas
                 .withIcon(getResources()
                         .getDrawable(R.drawable.circle_orange)));
         //
+        HamburguerLeft.addItem(new DividerDrawerItem());
+
+        //
         HamburguerLeft.addItem(new PrimaryDrawerItem()
                 .withName("Sair")
                 .withIcon(getResources()
@@ -256,6 +261,12 @@ public class Logado extends ComumActivity implements ValueEventListener, Firebas
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        cHelper.contextDataDB(Logado.this);
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         firebase.removeEventListener(ceListener);
@@ -269,13 +280,25 @@ public class Logado extends ComumActivity implements ValueEventListener, Firebas
 
     @Override
     public void onDataChange(DataSnapshot dataSnapshot) {
-        Cliente cliente = dataSnapshot.getValue(Cliente.class);
-        fragPerfil.setInfos(cliente);
-
+        this.cliente = dataSnapshot.getValue(Cliente.class);
+        if(sTag == "fragPerfil"){
+            fragPerfil.setInfos(this.cliente);
+        }
     }
 
     @Override
     public void onCancelled(FirebaseError firebaseError) {
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == ENABLE_BLUETOOTH) {
+            if(resultCode == RESULT_OK) {
+                showToast("Bluetooth ativado :D");
+            } else {
+                showToast("Bluetooth não ativado :(");
+            }
+        }
     }
 }

@@ -11,18 +11,16 @@
 
 
     <!-- Theme Login. -->
-    <style name="AppTheme.Login" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme.Login" parent="Theme.AppCompat">
         <item name="colorAccent">@color/colorLightPimaryColor</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     </style>
     <!-- Theme Perfil. -->
-    <style name="AppTheme.Perfil" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme.Perfil" parent="Theme.AppCompat">
         <item name="colorAccent">@color/colorLightPimaryColor</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="android:textAlignment">center</item>
-        <item name="android:focusable">false</item>
 
     </style>
     <!--<style name="AppTheme.teste" parent="MaterialDrawerTheme.Light.DarkToolbar.TranslucentStatus">-->

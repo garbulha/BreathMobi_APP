@@ -5,29 +5,40 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.firebase.client.AuthData;
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 
 import br.com.impacta.breathmobi_app.Controller.ClienteHelper;
+import br.com.impacta.breathmobi_app.Listener.ChildEventListener;
+import br.com.impacta.breathmobi_app.Model.Cliente;
 import br.com.impacta.breathmobi_app.Util.ComumActivity;
 import br.com.impacta.breathmobi_app.Util.UtilLogin;
+import br.com.impacta.breathmobi_app.View.Frag.FragEditarPerfil;
 import br.com.impacta.breathmobi_app.View.Logado;
 import br.com.impacta.breathmobi_app.View.MainActivity;
 
 /**
  * Created by TGarbulha on 25/04/2016.
  */
-public class Splash_Loading extends ComumActivity implements Runnable {
+public class Splash_Loading extends ComumActivity implements Runnable, ValueEventListener, Firebase.CompletionListener {
     private Firebase firebase;
-    private ClienteHelper cHelper;
     private String Flag = "nLogado";
+    private ClienteHelper cHelper;
+    private ChildEventListener ceListener;
+    private Cliente cliente;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.telainicial_loading);
-        cHelper = new ClienteHelper();
         firebase.setAndroidContext(this);
+        cHelper = new ClienteHelper();
+        firebase = UtilLogin.getFirebase().child("Usuario");
+        ceListener = new ChildEventListener();
+        firebase.addChildEventListener(ceListener);
+        cliente = new Cliente();
 
 
         Handler handler = new Handler();
@@ -40,9 +51,9 @@ public class Splash_Loading extends ComumActivity implements Runnable {
         firebase = UtilLogin.getFirebase();
         verifyUserLogged();
 
-        if(Flag == "sLogado"){
+        if (Flag == "sLogado") {
             startActivity(new Intent(this, Logado.class));
-        }else{
+        } else {
             startActivity(new Intent(this, MainActivity.class));
         }
         finish();
@@ -68,10 +79,39 @@ public class Splash_Loading extends ComumActivity implements Runnable {
                             }
 
                             @Override
-                            public void onAuthenticationError(FirebaseError firebaseError) { }
+                            public void onAuthenticationError(FirebaseError firebaseError) {
+                            }
                         }
                 );
             }
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        cHelper.contextDataDB(Splash_Loading.this);
+    }
+
+    @Override
+    public void onComplete(FirebaseError firebaseError, Firebase firebase) {
+
+    }
+
+    @Override
+    public void onDataChange(DataSnapshot dataSnapshot) {
+        cliente = dataSnapshot.getValue(Cliente.class);
+        UtilLogin.setNOME(cliente);
+    }
+
+    @Override
+    public void onCancelled(FirebaseError firebaseError) {
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        firebase.removeEventListener(ceListener);
     }
 }
