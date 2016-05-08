@@ -57,6 +57,7 @@ public class AsyncCliente extends AppCompatActivity  {
             refInserir.push().setValue(hmCliente);
 
             Toast.makeText(cx, "Registro salvo!!!", Toast.LENGTH_SHORT).show();
+
             return null;
         }
     }

@@ -11,6 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
         <activity android:name=".Splash_Loading" >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,10 +21,14 @@
         <activity
             android:name=".View.MainActivity"
             android:theme="@style/AppTheme.Login" />
+
         <activity android:name=".View.CadastroCliente" />
-        <activity android:name=".View.Logado" />
+
         <activity android:name=".View.EditarCliente"
             android:theme="@style/AppTheme.Perfil"/>
+
+        <activity android:name=".View.LogadoTeste"
+            android:theme="@style/AppTheme.teste"/>
     </application>
 
 </manifest>

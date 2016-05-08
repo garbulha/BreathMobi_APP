@@ -74,7 +74,6 @@ public class MainActivity extends ComumActivity implements View.OnClickListener 
         progressBar = (ProgressBar) findViewById(R.id.login_progressbar);
         cHelper = new ClienteHelper();
 
-
     }
 
     @Override

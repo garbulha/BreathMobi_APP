@@ -1,15 +1,12 @@
 package br.com.impacta.breathmobi_app.View;
 
 
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-
-
 import com.firebase.client.Firebase;
-
-
 import br.com.impacta.breathmobi_app.Listener.ChildEventListener;
 import br.com.impacta.breathmobi_app.R;
 import br.com.impacta.breathmobi_app.Util.ComumActivity;
@@ -23,6 +20,9 @@ public class Logado extends ComumActivity implements View.OnClickListener {
     private Button btn_editarcliente;
     private Firebase firebase;
     private ChildEventListener ceListener;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +43,6 @@ public class Logado extends ComumActivity implements View.OnClickListener {
         firebase = UtilLogin.getFirebase().child("Usuario");
         ceListener = new ChildEventListener();
         firebase.addChildEventListener(ceListener);
-
     }
 
     @Override
@@ -70,5 +69,6 @@ public class Logado extends ComumActivity implements View.OnClickListener {
         super.onDestroy();
         firebase.removeEventListener(ceListener);
     }
+
 }
 
