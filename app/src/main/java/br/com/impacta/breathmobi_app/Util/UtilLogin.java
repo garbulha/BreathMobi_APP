@@ -2,6 +2,8 @@ package br.com.impacta.breathmobi_app.Util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
 import com.firebase.client.Firebase;
 
@@ -49,4 +51,14 @@ public final class UtilLogin {
     }
 
 
+    public static boolean VerifyInternet(Context cx) {
+        ConnectivityManager cm = (ConnectivityManager) cx.getSystemService(cx.CONNECTIVITY_SERVICE);
+        NetworkInfo ni = cm.getActiveNetworkInfo();
+        if(ni != null && ni.isConnected()){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
 }

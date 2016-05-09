@@ -1,8 +1,10 @@
 package br.com.impacta.breathmobi_app.View.Frag;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +12,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.firebase.client.Firebase;
+import com.nispok.snackbar.Snackbar;
+import com.nispok.snackbar.SnackbarManager;
+import com.nispok.snackbar.enums.SnackbarType;
+
 import br.com.impacta.breathmobi_app.Controller.ClienteHelper;
 import br.com.impacta.breathmobi_app.Listener.ChildEventListener;
 import br.com.impacta.breathmobi_app.Model.Cliente;
 import br.com.impacta.breathmobi_app.R;
 import br.com.impacta.breathmobi_app.Util.UtilLogin;
-
+import br.com.impacta.breathmobi_app.View.Logado;
 
 
 /**
@@ -68,21 +74,40 @@ public class FragEditarPerfil extends Fragment {
         btn_alterar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    Cliente cliente = new Cliente();
-                    cliente.setNome(ed_nome.getText().toString());
-                    cliente.setIdade(ed_dtnasc.getText().toString());
-                    cliente.setSexo(ed_sexo.getText().toString());
-                    cliente.setAltura(ed_altura.getText().toString());
-                    cliente.setPeso(ed_peso.getText().toString());
-                    cliente.setMacAdress(ed_macaddres.getText().toString());
-                    cHelper.updateDB(getContext(), cliente);
-                    Toast.makeText(getContext(), "ALteração com Sucesso", Toast.LENGTH_SHORT).show();
-                } catch (Exception exc) {
-                    Toast.makeText(getContext(), exc.getMessage(), Toast.LENGTH_SHORT).show();
-                } finally {
 
-                }
+                AlertDialog.Builder alerta = new AlertDialog.Builder(getActivity());
+                alerta.setTitle("Alterar");
+                alerta.setTitle("Deseja alterar os dados?");
+                alerta.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        try {
+                            Cliente cliente = new Cliente();
+                            cliente.setNome(ed_nome.getText().toString());
+                            cliente.setIdade(ed_dtnasc.getText().toString());
+                            cliente.setSexo(ed_sexo.getText().toString());
+                            cliente.setAltura(ed_altura.getText().toString());
+                            cliente.setPeso(ed_peso.getText().toString());
+                            cliente.setMacAdress(ed_macaddres.getText().toString());
+                            cHelper.updateDB(getContext(), cliente);
+                            SnackbarManager.show(
+                                    Snackbar.with(getContext())
+                                            .text("Alterado com Sucesso !!!")
+                                            .color(getResources().getColor(android.R.color.black))
+                                            .textColor(getResources().getColor(R.color.colorPrimary))
+                                            .type(SnackbarType.MULTI_LINE)
+
+                            );
+                            //Toast.makeText(getContext(), "ALteração com Sucesso", Toast.LENGTH_SHORT).show();
+                        } catch (Exception exc) {
+                            Toast.makeText(getContext(), exc.getMessage(), Toast.LENGTH_SHORT).show();
+                        } finally {
+
+                        }
+                    }
+                });
+                alerta.setNegativeButton("Não", null);
+                alerta.show();
 
             }
         });

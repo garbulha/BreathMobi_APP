@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
         android:allowBackup="true"
@@ -26,11 +27,9 @@
 
         <activity android:name=".View.CadastroCliente" />
 
-        <activity android:name=".View.EditarCliente"
-            android:theme="@style/AppTheme.Perfil"/>
 
         <activity android:name=".View.Logado"
-            android:theme="@style/AppTheme.logado"/>
+            android:theme="@style/AppTheme.Logado"/>
     </application>
 
 </manifest>

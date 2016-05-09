@@ -3,6 +3,7 @@ package br.com.impacta.breathmobi_app;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.widget.Toast;
 
 import com.firebase.client.AuthData;
 import com.firebase.client.DataSnapshot;
@@ -33,6 +34,8 @@ public class Splash_Loading extends ComumActivity implements Runnable, ValueEven
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.telainicial_loading);
+        Handler handler = new Handler();
+        handler.postDelayed(this, 3000);
         firebase.setAndroidContext(this);
         cHelper = new ClienteHelper();
         firebase = UtilLogin.getFirebase().child("Usuario");
@@ -41,17 +44,15 @@ public class Splash_Loading extends ComumActivity implements Runnable, ValueEven
         cliente = new Cliente();
 
 
-        Handler handler = new Handler();
-        handler.postDelayed(this, 3000);
     }
-
 
     @Override
     public void run() {
         firebase = UtilLogin.getFirebase();
         verifyUserLogged();
 
-        if (Flag == "sLogado") {
+        if (Flag == "sLogado" && UtilLogin.VerifyInternet(this)) {
+
             startActivity(new Intent(this, Logado.class));
         } else {
             startActivity(new Intent(this, MainActivity.class));
@@ -112,6 +113,6 @@ public class Splash_Loading extends ComumActivity implements Runnable, ValueEven
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        firebase.removeEventListener(ceListener);
+
     }
 }

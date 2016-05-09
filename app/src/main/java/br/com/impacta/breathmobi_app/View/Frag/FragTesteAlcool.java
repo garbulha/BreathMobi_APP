@@ -17,6 +17,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nispok.snackbar.Snackbar;
+import com.nispok.snackbar.SnackbarManager;
+import com.nispok.snackbar.enums.SnackbarType;
+
 import br.com.impacta.breathmobi_app.Bluetooth.ConnectionThread;
 import br.com.impacta.breathmobi_app.Bluetooth.HelpBluetooth;
 import br.com.impacta.breathmobi_app.R;
@@ -31,6 +35,7 @@ public class FragTesteAlcool extends Fragment{
     public static int ENABLE_BLUETOOTH = 1;
     public static int SELECT_PAIRED_DEVICE = 2;
     public static int SELECT_DISCOVERED_DEVICE = 3;
+    private ConnectionThread connect;
 
     public String MACAdress = "98:D3:31:FD:06:03";
 
@@ -56,7 +61,7 @@ public class FragTesteAlcool extends Fragment{
     private void inicializarAcao() {
         // Verifica se o dispositivo comporta aplicação com Bluetooth e seu hardware esta ok //
         HelpBluetooth hb = new HelpBluetooth();
-        statusMsn.setText(hb.verificaHardwareBluetooth());
+       // statusMsn.setText(hb.verificaHardwareBluetooth());
         //
         // Solicita a ativação do bluetooth por parte do usuario se estiver desligado.
         //   solicitaAtivarBluetooth(cx);
@@ -75,7 +80,6 @@ public class FragTesteAlcool extends Fragment{
 
     private void verificaBluetoothAtivado() {
         if(!BAdpter.isEnabled()){
-
             //ativando bluetooth//
             BAdpter.enable();
             Log.i("BLUETOOTH", "Bluetooth Ativado Automatico :D");
@@ -85,9 +89,7 @@ public class FragTesteAlcool extends Fragment{
             Log.i("BLUETOOTH", "Bluetooth já Ativado  :o");
             //statusMsn.setText("Bluetooth já esta Ativado  :o");
         }
-
-
-        ConnectionThread connect = new ConnectionThread(MACAdress);
+        connect = new ConnectionThread(MACAdress);
         connect.start();
     }
 
@@ -104,23 +106,26 @@ public class FragTesteAlcool extends Fragment{
 
     }
 
-    public static Handler handler = new Handler() {
+    public  Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
 
             Bundle bundle = msg.getData();
             byte[] data = bundle.getByteArray("data");
-
             String dataString = new String(data);
 
 
             if(dataString.equals("---N")) {
-                //statusMsn.setText("Ocorreu um erro durante a conexão D:");
+
+                statusMsn.setText("Ligue seu bafômetro");
+
                 Log.i("Bluetooth", "Ocorreu um erro durante a conexão D:");
+                //Toast.makeText(getContext(),"Por favor Tente Novamente",Toast.LENGTH_SHORT).show();
 
             }
             else if(dataString.equals("---S")) {
                 //statusMsn.setText("Conectado :D");
+
                 Log.i("Bluetooth", "Conectado :D");
             }
             else {
@@ -128,9 +133,5 @@ public class FragTesteAlcool extends Fragment{
             }
         }
     };
-
-
-
-
 
 }

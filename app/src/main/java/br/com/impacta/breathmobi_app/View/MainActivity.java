@@ -1,13 +1,20 @@
 package br.com.impacta.breathmobi_app.View;
 
 
+import android.animation.ObjectAnimator;
+import android.annotation.TargetApi;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AlertDialog;
+
+import android.media.audiofx.BassBoost;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.InputType;
 import android.util.Log;
-import android.view.LayoutInflater;
+
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -19,6 +26,11 @@ import android.widget.Toast;
 import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.nispok.snackbar.Snackbar;
+import com.nispok.snackbar.SnackbarManager;
+import com.nispok.snackbar.enums.SnackbarType;
+import com.nispok.snackbar.listeners.ActionClickListener;
+import com.nispok.snackbar.listeners.EventListenerAdapter;
 
 
 import java.util.Map;
@@ -51,8 +63,17 @@ public class MainActivity extends ComumActivity implements View.OnClickListener 
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.telainicial_login);
-        firebase.setAndroidContext(this);
+        if (!UtilLogin.VerifyInternet(this)) {
+            SnackbarManager.show(
+                    Snackbar.with(this)
+                            .text("Sem Conexão com a Internet. Por Favor Conectar !!!")
+                            .color(getResources().getColor(android.R.color.black))
+                            .textColor(getResources().getColor(android.R.color.white))
 
+            );
+//            Toast.makeText(getBaseContext(), "Sem Conexão Internet", Toast.LENGTH_LONG).show();
+        }
+        firebase.setAndroidContext(this);
         inicializarVariavel();
 
         tv_cadastrar.setOnClickListener(this);
@@ -74,15 +95,16 @@ public class MainActivity extends ComumActivity implements View.OnClickListener 
         progressBar = (ProgressBar) findViewById(R.id.login_progressbar);
         cHelper = new ClienteHelper();
 
+
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onClick(View v) {
-
         switch (v.getId()) {
             case R.id.telainicial_cadastrar:
 
-                final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle("Novo Cadastro");
                 builder.setView(R.layout.cadastro_cliente);
 
@@ -108,34 +130,41 @@ public class MainActivity extends ComumActivity implements View.OnClickListener 
                 break;
 
             case R.id.btn_login:
-                openProgressBar();
-                //Verifica  no firebase se esta logado
+                final String login = tv_login.getText().toString();
+                final String senha = tv_senha.getText().toString();
+                final ProgressDialog p_dialog;
+                p_dialog = ProgressDialog.show(this, "Validando Login", "Aguarde...", false, true);
+                p_dialog.setProgressStyle(ProgressDialog.BUTTON_POSITIVE);
+                p_dialog.setProgressStyle(R.style.ProgressBar);
+
+
                 firebase.authWithPassword(
-                        tv_login.getText().toString(),
-                        tv_senha.getText().toString(),
+                        login,
+                        senha,
                         new Firebase.AuthResultHandler() {
                             @Override
                             public void onAuthenticated(AuthData authData) {
                                 cHelper.saveIdSP(MainActivity.this, authData.getUid());
-                                closeProgressBar();
-
                                 Intent mIntent = new Intent(getApplicationContext(), Logado.class);
                                 startActivity(mIntent);
+
+                                p_dialog.dismiss();
                                 finish();
                             }
 
                             @Override
                             public void onAuthenticationError(FirebaseError firebaseError) {
-                                closeProgressBar();
+
+                                p_dialog.dismiss();
                                 showToast("E-mail ou Senha Inválido!");
                             }
                         }
                 );
+
                 break;
 
             case R.id.telainicial_esqueceusenha:
-
-                final AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
                 builder1.setTitle("Esqueceu Senha");
                 builder1.setView(R.layout.esqueceusenha);
 

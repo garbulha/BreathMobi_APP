@@ -29,6 +29,8 @@ public class ConnectionThread extends Thread {
     String btDevAddress = null;
     String myUUID = "00001101-0000-1000-8000-00805F9B34FB";
 
+    private FragTesteAlcool fta;
+
     boolean server;
     boolean running = false;
 
@@ -37,7 +39,7 @@ public class ConnectionThread extends Thread {
     Bluetooth para o qual deve ser solicitada uma conexão.
      */
     public ConnectionThread(String btDevAddress) {
-
+        fta = new FragTesteAlcool();
         this.server = false;
         this.btDevAddress = btDevAddress;
     }
@@ -168,7 +170,7 @@ public class ConnectionThread extends Thread {
         bundle.putByteArray("data", data);
 
         message.setData(bundle);
-        FragTesteAlcool.handler.sendMessage(message);
+        fta.handler.sendMessage(message);
     }
 
 

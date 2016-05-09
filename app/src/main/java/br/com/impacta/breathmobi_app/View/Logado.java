@@ -1,7 +1,10 @@
 package br.com.impacta.breathmobi_app.View;
 
+import android.annotation.TargetApi;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -73,18 +76,27 @@ public class Logado extends ComumActivity implements ValueEventListener, Firebas
         ceListener = new ChildEventListener();
         firebase.addChildEventListener(ceListener);
         cHelper = new ClienteHelper();
+
     }
 
 
-    private void inicializarAcao(Bundle savedInstanceState) {
 
+    private void inicializarAcao(Bundle savedInstanceState) {
+        FragmentManager fm = getSupportFragmentManager();
+
+        fragAlcool = new FragTesteAlcool();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.container_frag, fragAlcool, "fragAlcool");
+        ft.commit();
+
+        mToolbar.setTitleTextColor(getApplicationContext().getResources().getColor(android.R.color.white));
 
         headerNavigationLeft = new AccountHeader()
                 .withActivity(this)
                 .withCompactStyle(false)
                 .withHeaderBackground(R.drawable.gradient)
                 .addProfiles(new ProfileDrawerItem()
-                                .withName("Olá! " + UtilLogin.getNOME())
+                                .withName("Olá! " + cliente.getNome())
                                 .withIcon(getResources()
                                         .getDrawable(R.drawable.perfil1))
 
@@ -162,7 +174,6 @@ public class Logado extends ComumActivity implements ValueEventListener, Firebas
 
                                 break;
 
-
                             case 2:
                                 sTag = "fragVolta";
                                 //
@@ -193,9 +204,15 @@ public class Logado extends ComumActivity implements ValueEventListener, Firebas
                                 }
                                 break;
 
-                            case 4:
+                            case 5:
+
+                                final ProgressDialog p_dialog;
+                                p_dialog = ProgressDialog.show(Logado.this,"","Saindo...", false, true);
+                                p_dialog.setProgressStyle(ProgressDialog.BUTTON_POSITIVE);
+                                p_dialog.setProgressStyle(R.style.ProgressBar);
                                 firebase.unauth();
                                 startActivity(new Intent(Logado.this, MainActivity.class));
+                                p_dialog.dismiss();
                                 finish();
                                 break;
 
