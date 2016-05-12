@@ -106,15 +106,14 @@ public class MainActivity extends ComumActivity implements View.OnClickListener 
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle("Novo Cadastro");
-                builder.setView(R.layout.cadastro_cliente);
+                builder.setView(R.layout.cadastro_cliente_inicio);
 
-                builder.setPositiveButton("Inserir", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton("Cadastrar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         openProgressBar();
                         cHelper = new ClienteHelper(dialog);
-                        cliente = cHelper.pegaCliente();
-                        cadastrarUsuario(cliente);
+                        cadastrarUsuario(cliente = cHelper.pegaCliente());
 
                     }
                 });
@@ -136,7 +135,9 @@ public class MainActivity extends ComumActivity implements View.OnClickListener 
                 p_dialog = ProgressDialog.show(this, "Validando Login", "Aguarde...", false, true);
                 p_dialog.setProgressStyle(ProgressDialog.BUTTON_POSITIVE);
                 p_dialog.setProgressStyle(R.style.ProgressBar);
-
+//                final ProgressDialog p;
+//                p = ProgressDialog.show(this,"","");
+//                p.setContentView(R.layout.actionbar_layout);
 
                 firebase.authWithPassword(
                         login,

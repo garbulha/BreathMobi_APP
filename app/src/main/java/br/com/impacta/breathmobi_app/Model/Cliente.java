@@ -27,6 +27,17 @@ public class Cliente{
 
 
     public Cliente() {
+        this.Id = "";
+        this.nome = "";
+        this.idade = "";
+        this.usuario = "";
+        this.senha = "";
+        this.sexo = "";
+        this.macAdress = "";
+        this.altura = "";
+        this.peso = "";
+
+
 
     }
 

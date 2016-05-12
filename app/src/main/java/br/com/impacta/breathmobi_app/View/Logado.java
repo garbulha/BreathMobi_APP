@@ -206,14 +206,22 @@ public class Logado extends ComumActivity implements ValueEventListener, Firebas
 
                             case 5:
 
-                                final ProgressDialog p_dialog;
-                                p_dialog = ProgressDialog.show(Logado.this,"","Saindo...", false, true);
-                                p_dialog.setProgressStyle(ProgressDialog.BUTTON_POSITIVE);
-                                p_dialog.setProgressStyle(R.style.ProgressBar);
-                                firebase.unauth();
+
                                 startActivity(new Intent(Logado.this, MainActivity.class));
-                                p_dialog.dismiss();
+                                firebase.unauth();
                                 finish();
+
+//                                final ProgressDialog p_dialog;
+//                                p_dialog = ProgressDialog.show(Logado.this,"","Saindo...", false, true);
+//                                p_dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+//                                p_dialog.setProgressStyle(R.style.ProgressBar);
+//                                try {
+//                                    Thread.sleep(1500);
+//                                } catch (InterruptedException e) {
+//                                    e.printStackTrace();
+//                                }
+//
+//                                p_dialog.dismiss();
                                 break;
 
                             default:

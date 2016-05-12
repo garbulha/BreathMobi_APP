@@ -30,7 +30,7 @@ public final class UtilLogin {
     }
 
     public static void setNOME(Cliente cliente){
-        NOME = cliente.getNome();
+        NOME = "Thiago";
     }
 
     public static String getNOME(){

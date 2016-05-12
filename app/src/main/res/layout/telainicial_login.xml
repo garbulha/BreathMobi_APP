@@ -39,7 +39,8 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_mail_white_24dp"
                 android:hint="Login"
-                android:inputType="text"
+
+                android:inputType="textCapSentences"
                 android:textColor="#FFF"
                 android:textColorHint="#FFF" />
 

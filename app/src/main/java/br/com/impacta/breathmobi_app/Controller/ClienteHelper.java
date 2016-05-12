@@ -89,10 +89,10 @@ public class ClienteHelper {
        // usado no cadastro
     public Cliente pegaCliente() {
         try {
-            this.cliente.setNome(nome.getText().toString());
-            this.cliente.setIdade(idade.getText().toString());
             this.cliente.setUsuario(usuario.getText().toString());
             this.cliente.setSenha(senha.getText().toString());
+            this.cliente.setNome(nome.getText().toString());
+            this.cliente.setIdade(idade.getText().toString());
             this.cliente.setMacAdress(macAddres.getText().toString());
             this.cliente.setSexo(sexo.getText().toString());
             this.cliente.setAltura(altura.getText().toString());
