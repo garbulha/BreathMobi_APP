@@ -3,15 +3,18 @@ package br.com.impacta.breathmobi_app.View;
 import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Toast;
 
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -54,7 +57,7 @@ public class Logado extends ComumActivity implements ValueEventListener, Firebas
     private FragEditarPerfil fragPerfil;
     private Cliente cliente;
     private ClienteHelper cHelper;
-    private  String sTag = "";
+    private String sTag = "";
 
     public static int ENABLE_BLUETOOTH = 1;
 
@@ -80,7 +83,6 @@ public class Logado extends ComumActivity implements ValueEventListener, Firebas
     }
 
 
-
     private void inicializarAcao(Bundle savedInstanceState) {
         FragmentManager fm = getSupportFragmentManager();
 
@@ -93,10 +95,11 @@ public class Logado extends ComumActivity implements ValueEventListener, Firebas
 
         headerNavigationLeft = new AccountHeader()
                 .withActivity(this)
+                .withSelectionListEnabled(false)
                 .withCompactStyle(false)
                 .withHeaderBackground(R.drawable.gradient)
                 .addProfiles(new ProfileDrawerItem()
-                                .withName("Olá! " + cliente.getNome())
+                                .withName("Olá! " + String.valueOf(cliente.getNome()))
                                 .withIcon(getResources()
                                         .getDrawable(R.drawable.perfil1))
 
@@ -106,12 +109,14 @@ public class Logado extends ComumActivity implements ValueEventListener, Firebas
                     @Override
                     public boolean onClick(View view, IProfile profile) {
 
+
                         return true;
                     }
                 })
                 .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
                     @Override
                     public boolean onProfileChanged(View view, IProfile profile, boolean current) {
+                        Toast.makeText(getBaseContext(),cliente.getNome(), Toast.LENGTH_SHORT).show();
                         return true;
                     }
                 })
@@ -205,17 +210,25 @@ public class Logado extends ComumActivity implements ValueEventListener, Firebas
                                 break;
 
                             case 5:
-
-                                final ProgressDialog p_dialog;
-                                p_dialog = ProgressDialog.show(Logado.this,"","Saindo...", false, true);
-                                p_dialog.setProgressStyle(ProgressDialog.BUTTON_POSITIVE);
-                                p_dialog.setProgressStyle(R.style.ProgressBar);
-                                firebase.unauth();
-                                startActivity(new Intent(Logado.this, MainActivity.class));
-                                p_dialog.dismiss();
-                                finish();
+                                AlertDialog.Builder alerta = new AlertDialog.Builder(Logado.this);
+                                alerta.setTitle("Sair!");
+                                alerta.setTitle("Deseja realmente sair?");
+                                alerta.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        final ProgressDialog p_dialog;
+                                        p_dialog = ProgressDialog.show(Logado.this, "", "Saindo...", false, true);
+                                        p_dialog.setProgressStyle(ProgressDialog.BUTTON_POSITIVE);
+                                        p_dialog.setProgressStyle(R.style.ProgressBar);
+                                        firebase.unauth();
+                                        startActivity(new Intent(Logado.this, MainActivity.class));
+                                        p_dialog.dismiss();
+                                        finish();
+                                    }
+                                });
+                                alerta.setNegativeButton("Não", null);
+                                alerta.show();
                                 break;
-
                             default:
 
                                 break;
@@ -236,17 +249,17 @@ public class Logado extends ComumActivity implements ValueEventListener, Firebas
         HamburguerLeft.addItem(new PrimaryDrawerItem()
                 .withName("Realizar Teste")
                 .withIcon(getResources()
-                        .getDrawable(R.drawable.facebook_button)));
+                        .getDrawable(R.drawable.circle_blue)));
         //
         HamburguerLeft.addItem(new PrimaryDrawerItem()
                 .withName("Perfil")
                 .withIcon(getResources()
-                        .getDrawable(R.drawable.facebook_button)));
+                        .getDrawable(R.drawable.perfil1)));
         //
         HamburguerLeft.addItem(new PrimaryDrawerItem()
                 .withName("Volta Segura")
                 .withIcon(getResources()
-                        .getDrawable(R.drawable.circle_orange)));
+                        .getDrawable(R.drawable.uber_badge)));
         //
         HamburguerLeft.addItem(new PrimaryDrawerItem()
                 .withName("Histórico")
@@ -259,7 +272,7 @@ public class Logado extends ComumActivity implements ValueEventListener, Firebas
         HamburguerLeft.addItem(new PrimaryDrawerItem()
                 .withName("Sair")
                 .withIcon(getResources()
-                        .getDrawable(R.drawable.circle_orange)));
+                        .getDrawable(R.mipmap.logo)));
 
 
     }
@@ -298,7 +311,7 @@ public class Logado extends ComumActivity implements ValueEventListener, Firebas
     @Override
     public void onDataChange(DataSnapshot dataSnapshot) {
         this.cliente = dataSnapshot.getValue(Cliente.class);
-        if(sTag == "fragPerfil"){
+        if (sTag == "fragPerfil") {
             fragPerfil.setInfos(this.cliente);
         }
     }
@@ -310,8 +323,8 @@ public class Logado extends ComumActivity implements ValueEventListener, Firebas
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == ENABLE_BLUETOOTH) {
-            if(resultCode == RESULT_OK) {
+        if (requestCode == ENABLE_BLUETOOTH) {
+            if (resultCode == RESULT_OK) {
                 showToast("Bluetooth ativado :D");
             } else {
                 showToast("Bluetooth não ativado :(");

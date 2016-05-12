@@ -1,19 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:uber="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="15dp"
     android:background="@color/colorPrimary"
     >
-
     <TextView
+        android:layout_width="match_parent"
+        android:layout_marginBottom="30dp"
+        android:text="Se beber nao dirija"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:textColor="@color/colorWhite"
+        android:textStyle="bold"
+        android:layout_height="wrap_content" />
+
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="VoltaSegura"
-    />
+        android:src="@drawable/ic_map_white_24dp"
+        android:id="@+id/imageView"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="50dp"/>
 
 
-    </LinearLayout>
+    <com.uber.sdk.android.rides.RequestButton
+        android:id="@+id/uber_button_black"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"
+        uber:client_id="@string/client_id"
+        android:textSize="20sp"
+        android:textAlignment="center"
+        android:background="@drawable/button_uber"
+        android:text="UBER"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:id="@+id/contatosButton"
+        android:layout_marginTop="20dp"
+        android:layout_height="50dp"
+        android:background="@drawable/border_button"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:text="Ligar para amigo"/>
+
+
+
+</LinearLayout>
 
