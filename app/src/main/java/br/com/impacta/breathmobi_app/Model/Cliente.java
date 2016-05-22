@@ -24,8 +24,6 @@ public class Cliente{
     private String altura;
     private String peso;
 
-
-
     public Cliente() {
         this.Id = "";
         this.nome = "";
