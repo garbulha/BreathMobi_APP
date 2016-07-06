@@ -72,10 +72,10 @@ public class ClienteHelper {
     public ClienteHelper(DialogInterface dialog) {
         try {
             // Pegando o que foi digitado no formulario //
-            this.nome = (EditText) ((Dialog) dialog).findViewById(R.id.cadastro_nome);
-            this.idade = (EditText) ((Dialog) dialog).findViewById(R.id.cadastro_idade);
             this.usuario = (EditText) ((Dialog) dialog).findViewById(R.id.cadastro_usuario);
             this.senha = (EditText) ((Dialog) dialog).findViewById(R.id.cadastro_senha);
+            this.nome = (EditText) ((Dialog) dialog).findViewById(R.id.cadastro_nome);
+            this.idade = (EditText) ((Dialog) dialog).findViewById(R.id.cadastro_idade);
             this.macAddres = (EditText) ((Dialog) dialog).findViewById(R.id.cadastro_macaddres);
             this.sexo = (EditText) ((Dialog) dialog).findViewById(R.id.cadastro_sexo);
             this.altura = (EditText) ((Dialog) dialog).findViewById(R.id.cadastro_altura);
@@ -89,11 +89,11 @@ public class ClienteHelper {
        // usado no cadastro
     public Cliente pegaCliente() {
         try {
-            this.cliente.setNome(nome.getText().toString());
-            this.cliente.setIdade(idade.getText().toString());
             this.cliente.setUsuario(usuario.getText().toString());
             this.cliente.setSenha(senha.getText().toString());
             this.cliente.setMacAdress(macAddres.getText().toString());
+            this.cliente.setNome(nome.getText().toString());
+            this.cliente.setIdade(idade.getText().toString());
             this.cliente.setSexo(sexo.getText().toString());
             this.cliente.setAltura(altura.getText().toString());
             this.cliente.setPeso(peso.getText().toString());
@@ -141,7 +141,7 @@ public class ClienteHelper {
         Log.i("xiiii",UtilLogin.getSP(context, ID ));
         this.cliente.setId(UtilLogin.getSP(context, ID));
     }
-}
+    }
 
 
 

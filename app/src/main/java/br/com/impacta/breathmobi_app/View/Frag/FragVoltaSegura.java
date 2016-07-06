@@ -104,7 +104,12 @@ public class FragVoltaSegura extends Fragment {
                             startActivity(mIntent);
                         }
                     });
-            alerta.setNegativeButton("Não", null);
+            alerta.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
             alerta.show();
         }
 
@@ -112,22 +117,9 @@ public class FragVoltaSegura extends Fragment {
         contatosButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder contact = new AlertDialog.Builder(v.getContext());
-                contact.setTitle("Contatos");
-                contact.setMessage("Deseja abrir lista de contatos?");
-                //
-                contact.setPositiveButton("Sim",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Uri uri = Uri.parse("content://com.android.contacts/contacts/");
-                                Intent mIntent = new Intent(Intent.ACTION_PICK, uri);
-                                startActivity(mIntent);
-                            }
-                        });
-                contact.setNegativeButton("Não", null);
-                contact.show();
-
+                Uri uri = Uri.parse("content://com.android.contacts/contacts/");
+                Intent mIntent = new Intent(Intent.ACTION_PICK, uri);
+                startActivity(mIntent);
             }
         });
     }
@@ -151,14 +143,11 @@ public class FragVoltaSegura extends Fragment {
 
         @Override
         public void onLocationChanged(Location location) {
-
             DROPOFF_LAT = (float) location.getLatitude();
             DROPOFF_LONG = (float) location.getLongitude();
 
             PICKUP_LAT = (float) location.getLatitude();
             PICKUP_LONG = (float) location.getLongitude();
-
-
         }
 
         @Override

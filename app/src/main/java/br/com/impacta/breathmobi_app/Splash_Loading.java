@@ -101,7 +101,7 @@ public class Splash_Loading extends ComumActivity implements Runnable, ValueEven
 
     @Override
     public void onDataChange(DataSnapshot dataSnapshot) {
-        cliente = dataSnapshot.getValue(Cliente.class);
+        //cliente = dataSnapshot.getValue(Cliente.class);
         UtilLogin.setNOME(cliente);
     }
 

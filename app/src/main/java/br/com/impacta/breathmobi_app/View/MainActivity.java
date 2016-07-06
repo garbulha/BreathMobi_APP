@@ -1,17 +1,13 @@
 package br.com.impacta.breathmobi_app.View;
 
-
-import android.animation.ObjectAnimator;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 
-import android.media.audiofx.BassBoost;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.text.InputType;
 import android.util.Log;
 
@@ -21,17 +17,12 @@ import android.widget.CheckBox;
 
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.SnackbarManager;
-import com.nispok.snackbar.enums.SnackbarType;
-import com.nispok.snackbar.listeners.ActionClickListener;
-import com.nispok.snackbar.listeners.EventListenerAdapter;
-
 
 import java.util.Map;
 
@@ -106,9 +97,9 @@ public class MainActivity extends ComumActivity implements View.OnClickListener 
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle("Novo Cadastro");
-                builder.setView(R.layout.cadastro_cliente);
+                builder.setView(R.layout.cadastro_cliente_inicial);
 
-                builder.setPositiveButton("Inserir", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton("Cadastrar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         openProgressBar();

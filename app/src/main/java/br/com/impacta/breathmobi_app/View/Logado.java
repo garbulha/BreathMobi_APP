@@ -66,6 +66,7 @@ public class Logado extends ComumActivity implements ValueEventListener, Firebas
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.telalogado);
+        firebase.setAndroidContext(this);
         //
         inicializarVariavel();
         inicializarAcao(savedInstanceState);
@@ -79,7 +80,6 @@ public class Logado extends ComumActivity implements ValueEventListener, Firebas
         ceListener = new ChildEventListener();
         firebase.addChildEventListener(ceListener);
         cHelper = new ClienteHelper();
-
     }
 
 
@@ -96,10 +96,10 @@ public class Logado extends ComumActivity implements ValueEventListener, Firebas
         headerNavigationLeft = new AccountHeader()
                 .withActivity(this)
                 .withSelectionListEnabled(false)
-                .withCompactStyle(false)
+                .withCompactStyle(true)
                 .withHeaderBackground(R.drawable.gradient)
                 .addProfiles(new ProfileDrawerItem()
-                                .withName("Olá! " + String.valueOf(cliente.getNome()))
+                                .withName("Olá!")
                                 .withIcon(getResources()
                                         .getDrawable(R.drawable.perfil1))
 
@@ -108,8 +108,6 @@ public class Logado extends ComumActivity implements ValueEventListener, Firebas
 
                     @Override
                     public boolean onClick(View view, IProfile profile) {
-
-
                         return true;
                     }
                 })
@@ -282,9 +280,6 @@ public class Logado extends ComumActivity implements ValueEventListener, Firebas
         if (HamburguerLeft.isDrawerOpen()) {
             HamburguerLeft.closeDrawer();
         }
-        /*else if(fab.isOpened()){
-            fab.close(true);
-        }*/
         else {
             super.onBackPressed();
         }
@@ -311,8 +306,10 @@ public class Logado extends ComumActivity implements ValueEventListener, Firebas
     @Override
     public void onDataChange(DataSnapshot dataSnapshot) {
         this.cliente = dataSnapshot.getValue(Cliente.class);
+
         if (sTag == "fragPerfil") {
             fragPerfil.setInfos(this.cliente);
+
         }
     }
 
