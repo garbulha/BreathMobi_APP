@@ -22,6 +22,7 @@ import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.SnackbarManager;
 import com.nispok.snackbar.enums.SnackbarType;
 
+import br.com.impacta.breathmobi_app.Bluetooth.AsyncBluetooth;
 import br.com.impacta.breathmobi_app.Bluetooth.ConnectionThread;
 import br.com.impacta.breathmobi_app.Bluetooth.HelpBluetooth;
 import br.com.impacta.breathmobi_app.R;
@@ -38,6 +39,7 @@ public class FragTesteAlcool extends Fragment {
     public static int SELECT_PAIRED_DEVICE = 2;
     public static int SELECT_DISCOVERED_DEVICE = 3;
     private ConnectionThread connect;
+    private Context cx;
 
     public String MACAdress = "98:D3:31:FD:06:03";
 
@@ -62,17 +64,21 @@ public class FragTesteAlcool extends Fragment {
     }
 
     private void inicializarAcao() {
-        // Verifica se o dispositivo comporta aplicação com Bluetooth e seu hardware esta ok //
+        cx = getContext();
+       // new AsyncBluetooth(cx);
+         // Verifica se o dispositivo comporta aplicação com Bluetooth e seu hardware esta ok //
         HelpBluetooth hb = new HelpBluetooth();
-        // statusMsn.setText(hb.verificaHardwareBluetooth());
+         statusMsn.setText(hb.verificaHardwareBluetooth());
         //
         // Solicita a ativação do bluetooth por parte do usuario se estiver desligado.
         //   solicitaAtivarBluetooth(cx);
         // verifica e ativa automaticamente//
-        verificaBluetoothAtivado();
+        // ********
+        //verificaBluetoothAtivado();
 
         ConnectionThread connect = new ConnectionThread(MACAdress);
         connect.start();
+        // ********
     }
 
     private void inicializarVariavel(View v) {
@@ -131,4 +137,9 @@ public class FragTesteAlcool extends Fragment {
         }
     };
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+     //   connect.cancel();
+    }
 }

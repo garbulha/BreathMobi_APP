@@ -99,9 +99,9 @@ public class Logado extends ComumActivity implements ValueEventListener, Firebas
                 .withCompactStyle(true)
                 .withHeaderBackground(R.drawable.gradient)
                 .addProfiles(new ProfileDrawerItem()
-                                .withName("Olá!")
+                                .withName("Seja Bem-Vindo")
                                 .withIcon(getResources()
-                                        .getDrawable(R.drawable.perfil1))
+                                        .getDrawable(R.drawable.logo))
 
                 )
                 .withOnAccountHeaderSelectionViewClickListener(new AccountHeader.OnAccountHeaderSelectionViewClickListener() {
@@ -114,7 +114,7 @@ public class Logado extends ComumActivity implements ValueEventListener, Firebas
                 .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
                     @Override
                     public boolean onProfileChanged(View view, IProfile profile, boolean current) {
-                        Toast.makeText(getBaseContext(),cliente.getNome(), Toast.LENGTH_SHORT).show();
+
                         return true;
                     }
                 })

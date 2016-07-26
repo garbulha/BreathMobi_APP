@@ -25,7 +25,6 @@ import br.com.impacta.breathmobi_app.View.Frag.FragTesteAlcool;
 public class ConnectionThread extends Thread {
     private static final int MESSAGE_READ = 0;
     BluetoothSocket btSocket = null;
-    BluetoothServerSocket btServerSocket = null;
     String btDevAddress = null;
     String myUUID = "00001101-0000-1000-8000-00805F9B34FB";
 
@@ -179,9 +178,7 @@ public class ConnectionThread extends Thread {
     public void cancel() {
 
         try {
-
             running = false;
-            btServerSocket.close();
             btSocket.close();
 
         } catch (IOException e) {

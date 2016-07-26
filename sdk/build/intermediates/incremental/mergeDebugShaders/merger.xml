@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="M:\Android\BreathMobi_APP\BreathMobi_APP\sdk\src\main\shaders"/></dataSet><dataSet config="debug"><source path="M:\Android\BreathMobi_APP\BreathMobi_APP\sdk\src\debug\shaders"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="C:\BreathMobi_APP\sdk\src\main\shaders"/></dataSet><dataSet config="debug"><source path="C:\BreathMobi_APP\sdk\src\debug\shaders"/></dataSet></merger>

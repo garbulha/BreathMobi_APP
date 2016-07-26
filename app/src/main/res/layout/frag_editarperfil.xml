@@ -4,126 +4,120 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="15dp"
-    android:background="@color/colorPrimary"
+
+
     >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@drawable/border_perfil"
-        >
+        android:background="@color/gray"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:padding="10dp">
 
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <ImageView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal">
+            android:src="@drawable/perfil"
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:background="#FFF"
-                android:src="@drawable/perfil1" />
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#FFF"
-            android:orientation="vertical"
-            android:padding="20dp"
-
-            >
-
-            <EditText
-                android:id="@+id/altera_nome"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Nome"
-                android:inputType="text"
-                android:lines="@android:integer/config_longAnimTime"
-                android:textAlignment="center"
-
-
-
-                />
-
-            <EditText
-                android:id="@+id/altera_idade"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Data Nascimento"
-                android:inputType="number"
-                android:textAlignment="center"
-
-                />
-
-            <EditText
-                android:id="@+id/altera_sexo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Sexo"
-                android:inputType="text"
-                android:textAlignment="center"
-
-                />
-
-            <EditText
-                android:id="@+id/altera_altura"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Altura"
-                android:inputType="numberDecimal"
-                android:textAlignment="center"
-
-                />
-
-            <EditText
-                android:id="@+id/altera_peso"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Peso"
-                android:inputType="numberDecimal"
-                android:textAlignment="center"
-
-                />
-
-            <EditText
-                android:id="@+id/altera_macaddres"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="MacAddres"
-                android:inputType="text"
-                android:textAlignment="center"
-
-                />
-
-        </LinearLayout>
-
+            />
 
 
     </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFF"
+        android:orientation="vertical"
+        android:padding="20dp"
+
+        >
+
+        <EditText
+            android:id="@+id/altera_nome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nome Completo"
+            android:inputType="text"
+            android:lines="@android:integer/config_longAnimTime"
+            android:textAlignment="center"
+
+
+            />
+
+        <EditText
+            android:id="@+id/altera_idade"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Data Nascimento"
+            android:inputType="number"
+            android:textAlignment="center"
+
+            />
+
+        <EditText
+            android:id="@+id/altera_sexo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Sexo"
+            android:inputType="text"
+            android:textAlignment="center"
+
+            />
+
+        <EditText
+            android:id="@+id/altera_altura"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Altura"
+            android:inputType="numberDecimal"
+            android:textAlignment="center"
+
+            />
+
+        <EditText
+            android:id="@+id/altera_peso"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Peso"
+            android:inputType="numberDecimal"
+            android:textAlignment="center"
+
+            />
+
+        <EditText
+            android:id="@+id/altera_macaddres"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="MacAddres"
+            android:inputType="text"
+            android:textAlignment="center"
+
+            />
+
+    </LinearLayout>
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="bottom"
         android:orientation="horizontal">
 
 
         <Button
             android:id="@+id/alterar_btn_alterar"
-            android:layout_width="wrap_content"
+            android:layout_width="18dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/border_button_alterar"
+            android:background="@color/colorPrimaryDark"
             android:text="Alterar"
             android:textColor="#FFF"
-            android:textSize="15sp"
+            android:textSize="19sp"
+
             />
 
     </LinearLayout>

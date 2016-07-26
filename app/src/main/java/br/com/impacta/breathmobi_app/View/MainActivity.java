@@ -46,7 +46,7 @@ public class MainActivity extends ComumActivity implements View.OnClickListener 
 
     private ClienteHelper cHelper;
 
-    private CheckBox ch_exibirsenha;
+   // private CheckBox ch_exibirsenha;
 
 
     @Override
@@ -69,7 +69,7 @@ public class MainActivity extends ComumActivity implements View.OnClickListener 
 
         tv_cadastrar.setOnClickListener(this);
         tv_esqueceuSenha.setOnClickListener(this);
-        ch_exibirsenha.setOnClickListener(this);
+        //ch_exibirsenha.setOnClickListener(this);
         btn_login.setOnClickListener(this);
 
 
@@ -80,7 +80,7 @@ public class MainActivity extends ComumActivity implements View.OnClickListener 
         tv_esqueceuSenha = (TextView) findViewById(R.id.telainicial_esqueceusenha);
         tv_senha = (TextView) findViewById(R.id.telainicial_senha);
         tv_login = (TextView) findViewById(R.id.telainicial_login);
-        ch_exibirsenha = (CheckBox) findViewById(R.id.telainicial_exibirsenha);
+       // ch_exibirsenha = (CheckBox) findViewById(R.id.telainicial_exibirsenha);
         btn_login = (Button) findViewById(R.id.btn_login);
         firebase = UtilLogin.getFirebase();
         progressBar = (ProgressBar) findViewById(R.id.login_progressbar);
@@ -168,15 +168,15 @@ public class MainActivity extends ComumActivity implements View.OnClickListener 
                 });
                 builder1.show();
                 break;
-            case R.id.telainicial_exibirsenha:
-                if (ch_exibirsenha.isChecked()) {
-                    Log.d("CHECK", "OK");
-                    tv_senha.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                } else {
-                    Log.d("CHECK", "FALSE");
-                    tv_senha.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                }
-                break;
+//            case R.id.telainicial_exibirsenha:
+//                if (ch_exibirsenha.isChecked()) {
+//                    Log.d("CHECK", "OK");
+//                    tv_senha.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+//                } else {
+//                    Log.d("CHECK", "FALSE");
+//                    tv_senha.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+//                }
+//                break;
 
         }
     }
