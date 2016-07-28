@@ -18,7 +18,7 @@ public class FragHistorico extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.cadastro_cliente, container, false);
+        View view = inflater.inflate(R.layout.frag_historico, container, false);
         return view;
     }
 

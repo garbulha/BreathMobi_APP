@@ -1,11 +1,8 @@
 package br.com.impacta.breathmobi_app.View;
 
-import android.annotation.TargetApi;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -14,7 +11,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Toast;
 
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -28,7 +24,6 @@ import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
-import br.com.impacta.breathmobi_app.Constantes;
 import br.com.impacta.breathmobi_app.Controller.ClienteHelper;
 import br.com.impacta.breathmobi_app.Listener.ChildEventListener;
 import br.com.impacta.breathmobi_app.Model.Cliente;
@@ -247,7 +242,7 @@ public class Logado extends ComumActivity implements ValueEventListener, Firebas
         HamburguerLeft.addItem(new PrimaryDrawerItem()
                 .withName("Realizar Teste")
                 .withIcon(getResources()
-                        .getDrawable(R.drawable.circle_blue)));
+                        .getDrawable(R.drawable.realizarteste1)));
         //
         HamburguerLeft.addItem(new PrimaryDrawerItem()
                 .withName("Perfil")
@@ -257,12 +252,12 @@ public class Logado extends ComumActivity implements ValueEventListener, Firebas
         HamburguerLeft.addItem(new PrimaryDrawerItem()
                 .withName("Volta Segura")
                 .withIcon(getResources()
-                        .getDrawable(R.drawable.uber_badge)));
+                        .getDrawable(R.drawable.voltasegura1)));
         //
         HamburguerLeft.addItem(new PrimaryDrawerItem()
                 .withName("Histórico")
                 .withIcon(getResources()
-                        .getDrawable(R.drawable.circle_orange)));
+                        .getDrawable(R.drawable.historico1)));
         //
         HamburguerLeft.addItem(new DividerDrawerItem());
 
@@ -270,7 +265,7 @@ public class Logado extends ComumActivity implements ValueEventListener, Firebas
         HamburguerLeft.addItem(new PrimaryDrawerItem()
                 .withName("Sair")
                 .withIcon(getResources()
-                        .getDrawable(R.mipmap.logo)));
+                        .getDrawable(R.drawable.sair1)));
 
 
     }

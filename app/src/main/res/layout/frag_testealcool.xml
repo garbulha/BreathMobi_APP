@@ -25,7 +25,7 @@
             android:layout_marginTop="40dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/circle_blue"
+            android:background="@color/accent"
             android:id="@+id/btn_testealcool_realizar"
 
 
